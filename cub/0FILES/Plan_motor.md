@@ -87,3 +87,7 @@ Este módulo será el "dueño" (creador y gestor) de las estructuras relacionada
     2.  El `main.c` oficial llamará a `ft_ctrl_parse(game)` (de Álex) y luego a `ft_init_motor(game)` (tuyo).
     3.  Asegurarse de que `ft_ctrl_cleanUp` libera toda la memoria (texturas, imágenes MLX, ventana, `map.grid`, etc.).
     4.  Probar con mapas reales.
+
+
+
+
