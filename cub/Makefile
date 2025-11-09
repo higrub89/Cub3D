@@ -2,10 +2,18 @@ NAME = cub3D
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iinclude -Ilibft/include
 
+# --- SRC PARA EL MOTOR ---
 SRC	= \
-	code/main.c \
-	code/parse/parse.c \
+	engine_graphics/src/engine/engine_main.c \
+	engine_graphics/src/mocking/mock_init.c \
 	code/cleanUp/cleanUp.c \
+	code/parse/parse.c \ 
+
+# --- SRC ORIGINAL ÁLEX---
+# SRC	= \
+# 	code/main.c \
+# 	code/parse/parse.c \
+# 	code/cleanUp/cleanUp.c \
 
 OBJ	= $(SRC:.c=.o)
 
