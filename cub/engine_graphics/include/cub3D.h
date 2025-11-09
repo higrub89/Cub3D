@@ -61,27 +61,27 @@ typedef struct s_engine
 }	t_engine;
 
 // t_game: El "cerebro" (reemplaza a t_grl)
-typedef struct s_game
+typedef struct s_grl
 {
 	t_mapdata	map;
 	t_player	player;
 	t_engine	engine;
 	char		**raw_file; // El `char **lines` de Álex
-}	t_game;
+}	t_grl;
 
 // --- PROTOTIPOS ---
 
 // ENGINE (Tu Módulo)
-void	ft_init_mock_data(t_game *game); // FASE 1: Tu "mapa falso"
+void	ft_init_mock_data(t_grl *game); // FASE 1: Tu "mapa falso"
 // (Añadiremos más prototipos aquí: ft_init_motor, ft_setup_hooks...)
 
 // PARSER (Módulo de Álex)
-void	ft_ctrl_parse(t_game *game, const char *map_file);
+void	ft_ctrl_parse(t_grl *game, const char *map_file);
 // ... (puedes copiar el resto de prototipos de su include/cub3D.h) ...
 
 // CLEANUP (Módulo de Álex)
-void	ft_ctrl_cleanUp(t_game *game, char *sterror, int exit_code);
+void	ft_ctrl_cleanUp(t_grl *game, char *sterror, int exit_code);
 void	ft_print_error(char *sterror);
-void	ft_free(t_game *game);
+void	ft_free(t_grl *game);
 
 #endif
