@@ -1,3 +1,4 @@
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -9,8 +10,7 @@
 # include <stdio.h>
 # include <errno.h>
 # include <math.h>
-// Incluye la minilibX 
-// # include "../../minilibx-linux/mlx.h" 
+// # include "../../minilibx-linux/mlx.h" // <-- Descomenta cuando instales MLX
 
 // --- CONFIGURACIÓN ---
 # define WIN_WIDTH 1024
@@ -60,28 +60,23 @@ typedef struct s_engine
 	t_img	textures[4];
 }	t_engine;
 
-// t_game: El "cerebro" (reemplaza a t_grl)
+// t_grl: El "cerebro" (¡Ahora con contenido!)
 typedef struct s_grl
 {
 	t_mapdata	map;
 	t_player	player;
 	t_engine	engine;
-	char		**raw_file; // El `char **lines` de Álex
+	char		**raw_file;
 }	t_grl;
 
 // --- PROTOTIPOS ---
 
 // ENGINE (Tu Módulo)
-void	ft_init_mock_data(t_grl *game); // FASE 1: Tu "mapa falso"
-// (Añadiremos más prototipos aquí: ft_init_motor, ft_setup_hooks...)
+void	ft_init_mock_data(t_grl *grl); // FASE 1: Tu "mapa falso"
 
-// PARSER (Módulo de Álex)
-void	ft_ctrl_parse(t_grl *game, const char *map_file);
-// ... (puedes copiar el resto de prototipos de su include/cub3D.h) ...
-
-// CLEANUP (Módulo de Álex)
-void	ft_ctrl_cleanUp(t_grl *game, char *sterror, int exit_code);
+// CLEANUP (Importamos los de Álex para usarlos)
+void	ft_ctrl_cleanUp(t_grl *grl, char *sterror, int exit_code);
 void	ft_print_error(char *sterror);
-void	ft_free(t_grl *game);
+void	ft_free(t_grl *grl);
 
 #endif
