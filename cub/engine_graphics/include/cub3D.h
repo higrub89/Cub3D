@@ -1,48 +1,87 @@
-/* include/cub3D.h */
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <stdio.h>
-# include <stdlib.h>
+// Incluimos libft (la ruta sube 2 niveles)
+# include "../../libft/include/libft.h"
+# include <fcntl.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <errno.h>
 # include <math.h>
-# include "../minilibx-linux/mlx.h" // Ajusta esta ruta si es necesario
+// Incluye la minilibX 
+// # include "../../minilibx-linux/mlx.h" 
 
-// Dimensiones de la ventana
+// --- CONFIGURACIÓN ---
 # define WIN_WIDTH 1024
 # define WIN_HEIGHT 768
 
-// Estructura para el mapa (lo que te dará Álex)
-typedef struct s_map
-{
-    char    **grid;     // La matriz del mapa: '1' pared, '0' suelo
-    int     width;      // Ancho total del mapa
-    int     height;     // Alto total del mapa
-    // Colores y texturas vendrán luego
-}   t_map;
+// --- ESTRUCTURAS DEL "CONTRATO" ---
 
-// Estructura del jugador (necesaria para el raycasting)
+typedef struct s_mapdata
+{
+	char	*no_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
+	int		floor_color;
+	int		ceiling_color;
+	char	**grid;
+	int		map_w;
+	int		map_h;
+}	t_mapdata;
+
 typedef struct s_player
 {
-    double  pos_x;      // Posición exacta X
-    double  pos_y;      // Posición exacta Y
-    double  dir_x;      // Vector de dirección X
-    double  dir_y;      // Vector de dirección Y
-    double  plane_x;    // Vector del plano de cámara X (para el FOV)
-    double  plane_y;    // Vector del plano de cámara Y
-}   t_player;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+}	t_player;
 
-// Estructura principal del juego
+typedef struct s_img
+{
+	void	*img_ptr;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+}	t_img;
+
+typedef struct s_engine
+{
+	void	*mlx;
+	void	*win;
+	t_img	screen_buff;
+	t_img	textures[4];
+}	t_engine;
+
+// t_game: El "cerebro" (reemplaza a t_grl)
 typedef struct s_game
 {
-    void        *mlx;
-    void        *win;
-    t_map       mapinfo;
-    t_player    player;
-}   t_game;
+	t_mapdata	map;
+	t_player	player;
+	t_engine	engine;
+	char		**raw_file; // El `char **lines` de Álex
+}	t_game;
 
-// Prototipo de tu función mock
-void    init_mock_map(t_game *game);
+// --- PROTOTIPOS ---
+
+// ENGINE (Tu Módulo)
+void	ft_init_mock_data(t_game *game); // FASE 1: Tu "mapa falso"
+// (Añadiremos más prototipos aquí: ft_init_motor, ft_setup_hooks...)
+
+// PARSER (Módulo de Álex)
+void	ft_ctrl_parse(t_game *game, const char *map_file);
+// ... (puedes copiar el resto de prototipos de su include/cub3D.h) ...
+
+// CLEANUP (Módulo de Álex)
+void	ft_ctrl_cleanUp(t_game *game, char *sterror, int exit_code);
+void	ft_print_error(char *sterror);
+void	ft_free(t_game *game);
 
 #endif
