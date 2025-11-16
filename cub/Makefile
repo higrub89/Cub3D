@@ -6,14 +6,17 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -pthread
 CFLAGS += -Iengine_graphics/include 
 CFLAGS += -Ilibft/include
+CFLAGS += -Iminilibx-linux/include
 # Añadimos la librería de Mates (la necesitarás)
 LDFLAGS	= -Llibft -lft -lm
-
+LDFLAGS += -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm
 # --- ARCHIVOS DE TU MÓDULO (ENGINE) ---
 # Compilamos tu main, tu mock, y el cleanUp de Álex
 SRC	= \
 	engine_graphics/src/engine/engine_main.c \
 	engine_graphics/src/mocking/mock_init.c \
+	engine_graphics/src/engine/engine_init.c \
+	engine_graphics/src/engine/engine_hooks.c \
 	code/cleanUp/cleanUp.c \
 
 # --- ARCHIVOS DE ÁLEX (Ignorados por ahora) ---

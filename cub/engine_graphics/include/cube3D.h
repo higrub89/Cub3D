@@ -1,8 +1,7 @@
-
+/* En engine_graphics/include/cub3D.h */
 #ifndef CUB3D_H
 # define CUB3D_H
 
-// Incluimos libft (la ruta sube 2 niveles)
 # include "../../libft/include/libft.h"
 # include <fcntl.h>
 # include <unistd.h>
@@ -10,14 +9,24 @@
 # include <stdio.h>
 # include <errno.h>
 # include <math.h>
-// # include "../../minilibx-linux/mlx.h" // <-- Descomenta cuando instales MLX
+// --- ¡¡ACTUALIZADO!! Descomentamos MLX ---
+# include "../../minilibx-linux/mlx.h" // <-- ¡IMPORTANTE!
 
 // --- CONFIGURACIÓN ---
 # define WIN_WIDTH 1024
 # define WIN_HEIGHT 768
 
-// --- ESTRUCTURAS DEL "CONTRATO" ---
+// --- ¡¡NUEVO!! Keycodes de Linux ---
+# define KEY_ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
 
+// ... (todas tus structs t_mapdata, t_player, t_img, t_engine, t_grl) ...
+// (Asegúrate de que t_grl reemplaza a t_game)
 typedef struct s_mapdata
 {
 	char	*no_path;
@@ -60,7 +69,6 @@ typedef struct s_engine
 	t_img	textures[4];
 }	t_engine;
 
-// t_grl: El "cerebro" (¡Ahora con contenido!)
 typedef struct s_grl
 {
 	t_mapdata	map;
@@ -72,9 +80,13 @@ typedef struct s_grl
 // --- PROTOTIPOS ---
 
 // ENGINE (Tu Módulo)
-void	ft_init_mock_data(t_grl *grl); // FASE 1: Tu "mapa falso"
+void	ft_init_mock_data(t_grl *grl); // FASE 1
+void	ft_init_motor(t_grl *grl);     // FASE 1
+void	ft_setup_hooks(t_grl *grl);    // FASE 2
+int		ft_game_loop(t_grl *grl);      // FASE 3
+int		ft_close_game(t_grl *grl);   // FASE 2
 
-// CLEANUP (Importamos los de Álex para usarlos)
+// CLEANUP (Módulo de Álex)
 void	ft_ctrl_cleanUp(t_grl *grl, char *sterror, int exit_code);
 void	ft_print_error(char *sterror);
 void	ft_free(t_grl *grl);
