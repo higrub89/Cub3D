@@ -17,5 +17,6 @@ void	ft_init_motor(t_grl *grl)
 
 	printf("✅ MOTOR: MLX y Ventana iniciados.\n");
 	
-	// (Próximo paso: crear el buffer de pantalla (screen_buff) aquí)
+	// 3. Crear el buffer de pantalla (screen_buff)
+	ft_init_screen_buffer(grl);
 }

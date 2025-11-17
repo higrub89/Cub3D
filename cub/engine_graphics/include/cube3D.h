@@ -80,11 +80,12 @@ typedef struct s_grl
 // --- PROTOTIPOS ---
 
 // ENGINE (Tu Módulo)
-void	ft_init_mock_data(t_grl *grl); // FASE 1
-void	ft_init_motor(t_grl *grl);     // FASE 1
-void	ft_setup_hooks(t_grl *grl);    // FASE 2
-int		ft_game_loop(t_grl *grl);      // FASE 3
-int		ft_close_game(t_grl *grl);   // FASE 2
+void	ft_init_mock_data(t_grl *grl);     // FASE 1
+void	ft_init_motor(t_grl *grl);         // FASE 1
+void	ft_init_screen_buffer(t_grl *grl); // FASE 3
+void	ft_setup_hooks(t_grl *grl);        // FASE 2
+int		ft_game_loop(t_grl *grl);          // FASE 3
+int		ft_close_game(t_grl *grl);         // FASE 2
 
 // CLEANUP (Módulo de Álex)
 void	ft_ctrl_cleanUp(t_grl *grl, char *sterror, int exit_code);
