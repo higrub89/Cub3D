@@ -34,3 +34,34 @@ void    ft_init_mock_data(t_grl *grl)
 
     printf("✅ MOCK: Datos falsos cargados.\n");
 }
+
+/**
+ * @brief Libera toda la memoria asignada por ft_init_mock_data().
+ * Debe ser llamada antes de cerrar el programa para evitar leaks.
+ */
+void	ft_free_mock_data(t_grl *grl)
+{
+	int	i;
+
+	// 1. Liberar las 4 rutas de texturas mockeadas
+	if (grl->map.no_path)
+		free(grl->map.no_path);
+	if (grl->map.so_path)
+		free(grl->map.so_path);
+	if (grl->map.we_path)
+		free(grl->map.we_path);
+	if (grl->map.ea_path)
+		free(grl->map.ea_path);
+	
+	// 2. Liberar el mapa mock (grid creado con ft_split)
+	if (grl->map.grid)
+	{
+		i = 0;
+		while (grl->map.grid[i])
+			free(grl->map.grid[i++]);
+		free(grl->map.grid);
+		grl->map.grid = NULL;
+	}
+	
+	printf("✅ MOCK: Datos mock liberados.\n");
+}

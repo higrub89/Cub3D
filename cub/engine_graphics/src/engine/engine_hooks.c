@@ -8,9 +8,16 @@ int	ft_close_game(t_grl *grl)
 {
 	printf("Cerrando el juego...\n");
 	
-	// (Aquí liberarías texturas, buffer de pantalla, etc.)
+	// 1. Destruir el buffer de pantalla (FASE 3)
+	if (grl->engine.screen_buff.img_ptr)
+		mlx_destroy_image(grl->engine.mlx, grl->engine.screen_buff.img_ptr);
+	
+	// 2. (Aquí liberarías texturas cuando las carguemos)
+	// for (int i = 0; i < 4; i++)
+	//     if (grl->engine.textures[i].img_ptr)
+	//         mlx_destroy_image(grl->engine.mlx, grl->engine.textures[i].img_ptr);
 
-	// Destruir la ventana y la conexión
+	// 3. Destruir la ventana y la conexión
 	if (grl->engine.win)
 		mlx_destroy_window(grl->engine.mlx, grl->engine.win);
 	if (grl->engine.mlx)
@@ -19,7 +26,10 @@ int	ft_close_game(t_grl *grl)
 		free(grl->engine.mlx);
 	}
 	
-	// (Aquí llamarías a la función de Álex para liberar el parser)
+	// 4. Liberar datos mock (rutas de texturas y mapa)
+	ft_free_mock_data(grl);
+	
+	// 5. (Aquí llamarías a la función de Álex para liberar el parser)
 	// ft_free(grl); 
 
 	printf("¡Hasta luego!\n");
