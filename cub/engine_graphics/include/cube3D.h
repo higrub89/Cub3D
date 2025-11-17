@@ -81,6 +81,7 @@ typedef struct s_grl
 
 // ENGINE (Tu Módulo)
 void	ft_init_mock_data(t_grl *grl);     // FASE 1
+void	ft_free_mock_data(t_grl *grl);     // FASE 1 (cleanup)
 void	ft_init_motor(t_grl *grl);         // FASE 1
 void	ft_init_screen_buffer(t_grl *grl); // FASE 3
 void	ft_setup_hooks(t_grl *grl);        // FASE 2
