@@ -53,5 +53,7 @@ void	ft_setup_hooks(t_grl *grl)
 	// (17 = DestroyNotify)
 	mlx_hook(grl->engine.win, 17, (1L << 0), ft_close_game, grl);
 
-	// 3. (Próximo paso: mlx_loop_hook para el renderizado)
+	// 3. Hook para el loop de renderizado (FASE 3)
+	// Se ejecuta en cada frame antes de que MLX procese eventos
+	mlx_loop_hook(grl->engine.mlx, ft_game_loop, grl);
 }
