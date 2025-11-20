@@ -18,6 +18,7 @@ SRC	= \
 	engine_graphics/src/engine/engine_init.c \
 	engine_graphics/src/engine/engine_hooks.c \
 	engine_graphics/src/engine/engine_render.c \
+	engine_graphics/src/engine/engine_raycast.c \
 	code/cleanUp/cleanUp.c \
 
 # --- ARCHIVOS DE ÁLEX (Ignorados por ahora) ---
