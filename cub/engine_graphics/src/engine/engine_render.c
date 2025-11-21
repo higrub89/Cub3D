@@ -127,6 +127,19 @@ void	ft_raycast_walls(t_grl *grl)
 
 int	ft_game_loop(t_grl *grl)
 {
+	double	dt;
+	double	move_speed;
+	double	rot_speed;
+
+	dt = get_delta_time(grl);
+	move_speed = 3.0 * dt; // Ajusta este 3.0 para correr más o menos
+	rot_speed = 2.0 * dt;  // Ajusta este 2.0 para girar más o menos
+	if (grl->keys.w || grl->keys.s || grl->keys.a || grl->keys.d)
+		ft_move_player_pro(grl, move_speed);
+	if (grl->keys.right)
+		ft_rotate_player_pro(grl, rot_speed);
+	if (grl->keys.left)
+		ft_rotate_player_pro(grl, -rot_speed);
 	ft_render_floor_ceiling(grl);
 	ft_raycast_walls(grl);
 	mlx_put_image_to_window(grl->engine.mlx,
