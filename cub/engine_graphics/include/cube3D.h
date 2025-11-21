@@ -80,7 +80,12 @@ typedef struct s_ray
     int     line_height;
     int     draw_start;
     int     draw_end;
-    int     color;
+    
+    // --- NUEVO PARA TEXTURAS ---
+    double  wall_x;     // Punto exacto del impacto en el muro (0.0 a 1.0)
+    int     tex_x;      // Coordenada X en la textura
+    double  step;       // Cuanto avanzar en la textura por pixel de pantalla
+    double  tex_pos;    // Posición actual en la textura
 }   t_ray;
 
 typedef struct s_engine
@@ -107,6 +112,7 @@ void    ft_free_mock_data(t_grl *grl);
 
 // src/engine/engine_init.c
 void    ft_init_motor(t_grl *grl);
+void    ft_load_textures(t_grl *grl); // <--- NUEVO PROTOTIPO
 
 // src/engine/engine_hooks.c
 void    ft_setup_hooks(t_grl *grl);
@@ -123,11 +129,14 @@ void    ft_init_ray(t_ray *ray, t_grl *grl, int x);
 void    ft_calc_step(t_ray *ray, t_grl *grl);
 void    ft_perform_dda(t_ray *ray, t_grl *grl);
 void    ft_calc_wall_height(t_ray *ray);
-void    ft_get_wall_color(t_ray *ray);
+void    ft_calc_texture_x(t_ray *ray, t_grl *grl); // <--- CAMBIADO (antes ft_get_wall_color)
 
 // code/cleanUp/cleanUp.c (Módulo de limpieza)
 void    ft_ctrl_cleanUp(t_grl *grl, char *sterror, int exit_code);
 void    ft_print_error(char *sterror);
 void    ft_free(t_grl *grl);
+
+// EXTRAS
+void imprimir_vector(char **v);
 
 #endif

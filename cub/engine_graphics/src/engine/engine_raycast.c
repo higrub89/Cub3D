@@ -86,15 +86,16 @@ void	ft_calc_wall_height(t_ray *ray)
 		ray->draw_end = WIN_HEIGHT - 1;
 }
 
-// Paso 5: Elegir color (Temporal hasta texturas)
-void	ft_get_wall_color(t_ray *ray)
+void	ft_calc_texture_x(t_ray *ray, t_grl *grl)
 {
-	if (ray->side == 0) // Pared Este/Oeste
-		ray->color = 0x00FF00;
-	else // Pared Norte/Sur
-		ray->color = 0xFF0000;
-
-	// Sombreado simple
-	if (ray->side == 1)
-		ray->color = 0x7F0000;
+	if (ray->side == 0)
+		ray->wall_x = grl->player.pos_y + ray->perp_wall_dist * ray->ray_dir_y;
+	else
+		ray->wall_x = grl->player.pos_x + ray->perp_wall_dist * ray->ray_dir_x;
+	ray->wall_x -= floor((ray->wall_x));
+	ray->tex_x = (int)(ray->wall_x * (double)64);
+	if (ray->side == 0 && ray->ray_dir_x > 0)
+		ray->tex_x = 64 - ray->tex_x - 1;
+	if (ray->side == 1 && ray->ray_dir_y < 0)
+		ray->tex_x = 64 - ray->tex_x - 1;
 }

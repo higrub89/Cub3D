@@ -4,21 +4,41 @@
 #define MOVE_SPEED 0.1
 #define ROT_SPEED 0.1
 
-int	ft_close_game(t_grl *grl)
+int ft_close_game(t_grl *grl)
 {
-	printf("Cerrando el juego...\n");
-	if (grl->engine.screen_buff.img_ptr)
-		mlx_destroy_image(grl->engine.mlx, grl->engine.screen_buff.img_ptr);
-	if (grl->engine.win)
-		mlx_destroy_window(grl->engine.mlx, grl->engine.win);
-	if (grl->engine.mlx)
-	{
-		mlx_destroy_display(grl->engine.mlx);
-		free(grl->engine.mlx);
-	}
-	ft_free_mock_data(grl);
-	exit(0);
-	return (0);
+    int i;
+
+    printf("Cerrando el juego...\n");
+
+    // 1. Destruir el buffer de pantalla
+    if (grl->engine.screen_buff.img_ptr)
+        mlx_destroy_image(grl->engine.mlx, grl->engine.screen_buff.img_ptr);
+    
+    // 2. Destruir las texturas cargadas (¡NUEVO!)
+    i = 0;
+    while (i < 4)
+    {
+        if (grl->engine.textures[i].img_ptr)
+            mlx_destroy_image(grl->engine.mlx, grl->engine.textures[i].img_ptr);
+        i++;
+    }
+
+    // 3. Destruir la ventana
+    if (grl->engine.win)
+        mlx_destroy_window(grl->engine.mlx, grl->engine.win);
+    
+    // 4. Destruir el display y liberar puntero MLX
+    if (grl->engine.mlx)
+    {
+        mlx_destroy_display(grl->engine.mlx);
+        free(grl->engine.mlx);
+    }
+    
+    // 5. Liberar datos del mock (strings y grid)
+    ft_free_mock_data(grl);
+    
+    exit(0);
+    return (0);
 }
 
 static void	ft_rotate_player(t_grl *grl, double rot_speed)
