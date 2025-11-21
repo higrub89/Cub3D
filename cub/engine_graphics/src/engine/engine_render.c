@@ -84,27 +84,48 @@ void	ft_init_screen_buffer(t_grl *grl)
 		WIN_WIDTH, WIN_HEIGHT);
 }
 
-static void	ft_render_floor_ceiling(t_grl *grl)
+static void ft_render_floor_ceiling(t_grl *grl)
 {
-	int	x;
-	int	y;
-	int	half;
+    int     x;
+    int     y;
+    int     *pixel_ptr;
+    int     half_height;
+    int     ceiling_c;
+    int     floor_c;
 
-	half = WIN_HEIGHT / 2;
-	y = -1;
-	while (++y < half)
-	{
-		x = -1;
-		while (++x < WIN_WIDTH)
-			ft_put_pixel(grl, x, y, grl->map.ceiling_color);
-	}
-	while (y < WIN_HEIGHT)
-	{
-		x = -1;
-		while (++x < WIN_WIDTH)
-			ft_put_pixel(grl, x, y, grl->map.floor_color);
-		y++;
-	}
+    half_height = WIN_HEIGHT / 2;
+    ceiling_c = grl->map.ceiling_color;
+    floor_c = grl->map.floor_color;
+
+    // 1. PINTAR EL TECHO (Mitad superior)
+    y = 0;
+    while (y < half_height)
+    {
+        // Obtenemos el puntero al inicio de la línea 'y'
+        pixel_ptr = (int *)(grl->engine.screen_buff.addr + 
+                    (y * grl->engine.screen_buff.line_len));
+        x = 0;
+        while (x < WIN_WIDTH)
+        {
+            *pixel_ptr++ = ceiling_c; // Asigna y avanza el puntero (¡Rapidísimo!)
+            x++;
+        }
+        y++;
+    }
+
+    // 2. PINTAR EL SUELO (Mitad inferior)
+    while (y < WIN_HEIGHT)
+    {
+        pixel_ptr = (int *)(grl->engine.screen_buff.addr + 
+                    (y * grl->engine.screen_buff.line_len));
+        x = 0;
+        while (x < WIN_WIDTH)
+        {
+            *pixel_ptr++ = floor_c;
+            x++;
+        }
+        y++;
+    }
 }
 
 void	ft_raycast_walls(t_grl *grl)
@@ -147,4 +168,10 @@ int	ft_game_loop(t_grl *grl)
 		grl->engine.screen_buff.img_ptr,
 		0, 0);
 	return (0);
+}
+
+/* Convierte valores R, G, B (0-255) a un entero TRGB para MiniLibX */
+int ft_rgb_to_hex(int r, int g, int b)
+{
+    return (r << 16 | g << 8 | b);
 }

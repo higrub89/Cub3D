@@ -148,6 +148,7 @@ void    ft_init_screen_buffer(t_grl *grl);
 void    ft_put_pixel(t_grl *grl, int x, int y, int color);
 void    ft_raycast_walls(t_grl *grl);
 int     ft_game_loop(t_grl *grl);
+int     ft_rgb_to_hex(int r, int g, int b);
 
 // src/engine/engine_raycast.c
 void    ft_init_ray(t_ray *ray, t_grl *grl, int x);

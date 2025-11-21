@@ -14,8 +14,8 @@ void    ft_init_mock_data(t_grl *grl)
     grl->map.so_path = ft_strdup("assets/texturas/rough_wall.xpm");   // Sur
     grl->map.we_path = ft_strdup("assets/texturas/color_wall.xpm");  // Oeste
     grl->map.ea_path = ft_strdup("assets/texturas/color_wall.xpm"); // Este
-    grl->map.floor_color = 0x888888; // Gris
-    grl->map.ceiling_color = 0x333333; // Gris oscuro
+    grl->map.floor_color = ft_rgb_to_hex(15, 15, 18);
+    grl->map.ceiling_color = ft_rgb_to_hex(30, 32, 38);
 
   // 2. Datos del mapa (un 15x15 con obstáculos)
     grl->map.map_h = 15;

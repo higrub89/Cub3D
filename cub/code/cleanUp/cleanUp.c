@@ -1,4 +1,4 @@
-#include "../../include/cub3D.h"
+#include "../../engine_graphics/include/cube3D.h"
 
 // Función auxiliar para destruir el motor gráfico de forma segura
 static void ft_free_engine(t_grl *grl)
