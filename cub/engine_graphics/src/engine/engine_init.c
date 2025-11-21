@@ -17,8 +17,8 @@ static void	ft_load_single_texture(t_grl *grl, int id, char *path)
 			&grl->engine.textures[id].height);
 	if (!grl->engine.textures[id].img_ptr)
 	{
-		printf("Error cargando textura: %s\n", path);
-		ft_ctrl_cleanUp(grl, "Fallo carga texturas", 1);
+		printf("Error cargando textura ID %d: %s\n", id, path); // Opcional para debug
+        ft_ctrl_cleanUp(grl, "Error: Fallo carga texturas (xpm invalido o ruta mal)", 1);
 	}
 	grl->engine.textures[id].addr = mlx_get_data_addr(
 			grl->engine.textures[id].img_ptr,

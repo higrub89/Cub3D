@@ -10,31 +10,12 @@
 
 #include "../../include/cube3D.h"
 
-int	ft_close_game(t_grl *grl)
+int ft_close_game(t_grl *grl)
 {
-	int	i;
-
-	printf("Cerrando el juego...\n");
-	if (grl->engine.screen_buff.img_ptr)
-		mlx_destroy_image(grl->engine.mlx, grl->engine.screen_buff.img_ptr);
-	i = 0;
-	while (i < 4)
-	{
-		if (grl->engine.textures[i].img_ptr)
-			mlx_destroy_image(grl->engine.mlx,
-				grl->engine.textures[i].img_ptr);
-		i++;
-	}
-	if (grl->engine.win)
-		mlx_destroy_window(grl->engine.mlx, grl->engine.win);
-	if (grl->engine.mlx)
-	{
-		mlx_destroy_display(grl->engine.mlx);
-		free(grl->engine.mlx);
-	}
-	ft_free_mock_data(grl);
-	exit(0);
-	return (0);
+    printf("Cerrando el juego correctamente...\n");
+    // Llamamos a cleanup con código 0 (éxito) y sin mensaje de error
+    ft_ctrl_cleanUp(grl, NULL, 0);
+    return (0);
 }
 
 int	ft_handle_keypress(int key, t_grl *grl)
