@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhiguita <rhiguita@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: rhiguita <rhiguita@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 23:03:23 by rhiguita          #+#    #+#             */
-/*   Updated: 2025/11/22 23:04:43 by rhiguita         ###   ########.fr       */
+/*   Updated: 2025/11/24 10:35:24 by rhiguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,35 @@ void	ft_rotate_player_pro(t_grl *grl, double rot_speed)
 	double	old_plane_x;
 
 	old_dir_x = grl->player.dir_x;
-	grl->player.dir_x = grl->player.dir_x * cos(rot_speed)
-		- grl->player.dir_y * sin(rot_speed);
-	grl->player.dir_y = old_dir_x * sin(rot_speed)
-		+ grl->player.dir_y * cos(rot_speed);
+	grl->player.dir_x = grl->player.dir_x * cos(rot_speed) - grl->player.dir_y
+		* sin(rot_speed);
+	grl->player.dir_y = old_dir_x * sin(rot_speed) + grl->player.dir_y
+		* cos(rot_speed);
 	old_plane_x = grl->player.plane_x;
 	grl->player.plane_x = grl->player.plane_x * cos(rot_speed)
 		- grl->player.plane_y * sin(rot_speed);
-	grl->player.plane_y = old_plane_x * sin(rot_speed)
-		+ grl->player.plane_y * cos(rot_speed);
+	grl->player.plane_y = old_plane_x * sin(rot_speed) + grl->player.plane_y
+		* cos(rot_speed);
 }
 
 static void	ft_apply_move(t_grl *grl, double move_x, double move_y)
 {
 	double	new_x;
 	double	new_y;
+	double	margin_x;
+	double	margin_y;
 
-    // Margen de colisión para no pegar el ojo a la pared (0.1)
-    double margin = 0.1; 
-
+	margin_x = 0.1;
+	margin_y = 0.1;
+	if (move_x < 0)
+		margin_x = -0.1;
+	if (move_y < 0)
+		margin_y = -0.1;
 	new_x = grl->player.pos_x + move_x;
 	new_y = grl->player.pos_y + move_y;
-
-    // Verificamos X (Deslizamiento) en map_block
-	if (grl->map_block[(int)grl->player.pos_y][(int)(new_x + (move_x > 0 ? margin : -margin))] != '1')
+	if (grl->map_block[(int)grl->player.pos_y][(int)(new_x + margin_x)] != '1')
 		grl->player.pos_x = new_x;
-
-    // Verificamos Y (Deslizamiento) en map_block
-	if (grl->map_block[(int)(new_y + (move_y > 0 ? margin : -margin))][(int)grl->player.pos_x] != '1')
+	if (grl->map_block[(int)(new_y + margin_y)][(int)grl->player.pos_x] != '1')
 		grl->player.pos_y = new_y;
 }
 
@@ -69,28 +70,14 @@ void	ft_move_player_pro(t_grl *grl, double speed)
 {
 	double	mx;
 	double	my;
+	int		move;
+	int		strafe;
 
-	mx = 0;
-	my = 0;
-	if (grl->keys.w)
-	{
-		mx += grl->player.dir_x;
-		my += grl->player.dir_y;
-	}
-	if (grl->keys.s)
-	{
-		mx -= grl->player.dir_x;
-		my -= grl->player.dir_y;
-	}
-	if (grl->keys.d)
-	{
-		mx += grl->player.plane_x;
-		my += grl->player.plane_y;
-	}
-	if (grl->keys.a)
-	{
-		mx -= grl->player.plane_x;
-		my -= grl->player.plane_y;
-	}
+	move = grl->keys.w - grl->keys.s;
+	strafe = grl->keys.d - grl->keys.a;
+	if (move == 0 && strafe == 0)
+		return ;
+	mx = (move * grl->player.dir_x) + (strafe * grl->player.plane_x);
+	my = (move * grl->player.dir_y) + (strafe * grl->player.plane_y);
 	ft_apply_move(grl, mx * speed, my * speed);
 }

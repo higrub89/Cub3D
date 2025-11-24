@@ -6,7 +6,7 @@
 /*   By: rhiguita <rhiguita@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 23:04:53 by rhiguita          #+#    #+#             */
-/*   Updated: 2025/11/23 00:08:11 by rhiguita         ###   ########.fr       */
+/*   Updated: 2025/11/24 10:34:33 by rhiguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	ft_calc_step(t_ray *ray, t_grl *grl)
 			* ray->delta_dist_y;
 	}
 }
-// En engine_raycast.c
 
 void	ft_perform_dda(t_ray *ray, t_grl *grl)
 {
@@ -73,17 +72,12 @@ void	ft_perform_dda(t_ray *ray, t_grl *grl)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-
-		// --- SAFETY CHECK (El Airbag) ---
-		// Si el rayo sale del mapa, detenemos el cálculo para evitar Segfault.
-		if (ray->map_x < 0 || ray->map_x >= grl->map_width || 
-			ray->map_y < 0 || ray->map_y >= grl->map_height)
+		if (ray->map_x < 0 || ray->map_x >= grl->map_width || ray->map_y < 0
+			|| ray->map_y >= grl->map_height)
 		{
-			ray->hit = 1; // Consideramos que chocó con el "borde del mundo"
+			ray->hit = 1;
 			break ;
 		}
-		// -------------------------------
-
 		if (grl->map_block[ray->map_y][ray->map_x] == '1')
 			ray->hit = 1;
 	}

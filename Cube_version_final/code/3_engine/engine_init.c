@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhiguita <rhiguita@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: rhiguita <rhiguita@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 23:02:28 by rhiguita          #+#    #+#             */
-/*   Updated: 2025/11/22 23:02:38 by rhiguita         ###   ########.fr       */
+/*   Updated: 2025/11/24 10:24:02 by rhiguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ static void	ft_load_single_texture(t_grl *grl, int id, char *path)
 			&grl->engine.textures[id].endian);
 }
 
-/**
- * @brief Carga las 4 texturas usando las rutas parseadas en grl->assets.
- * Orden: NO(0), SO(1), WE(2), EA(3).
- */
+
+//Carga las 4 texturas usando las rutas parseadas en grl->assets.
+//Orden: NO(0), SO(1), WE(2), EA(3).
 void	ft_load_textures(t_grl *grl)
 {
 	ft_load_single_texture(grl, 0, grl->assets.textures_path[HDR_NO]);
@@ -72,9 +71,5 @@ void	ft_init_motor(t_grl *grl)
 		ft_ctrl_cleanUp(grl, "Error: mlx_new_window() failed", 1);
 	printf("✅ MOTOR: MLX y Ventana iniciados.\n");
 	ft_init_screen_buffer(grl);
-	// NOTA: ft_load_textures se llama DESPUÉS desde el main o bridge, 
-	// pero si quieres asegurar, la llamamos aquí.
-	// Por orden del main que propuse antes, mejor dejar que el main la llame
-	// o llamarla aquí. Para simplificar, la llamaremos aquí:
 	ft_load_textures(grl);
 }
