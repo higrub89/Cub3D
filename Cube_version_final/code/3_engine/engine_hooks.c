@@ -6,7 +6,7 @@
 /*   By: rhiguita <rhiguita@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 23:02:01 by rhiguita          #+#    #+#             */
-/*   Updated: 2025/11/24 10:24:28 by rhiguita         ###   ########.fr       */
+/*   Updated: 2025/11/24 10:42:24 by rhiguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,30 @@ int	ft_handle_keyrelease(int key, t_grl *grl)
 		grl->keys.left = 0;
 	if (key == KEY_RIGHT)
 		grl->keys.right = 0;
+	return (0);
+}
+
+int	ft_game_loop(t_grl *grl)
+{
+	double	dt;
+	double	move_speed;
+	double	rot_speed;
+
+	dt = get_delta_time(grl);
+	move_speed = 3.0 * dt;
+	rot_speed = 2.0 * dt;
+	if (grl->keys.w || grl->keys.s || grl->keys.a || grl->keys.d)
+		ft_move_player_pro(grl, move_speed);
+	if (grl->keys.right)
+		ft_rotate_player_pro(grl, rot_speed);
+	if (grl->keys.left)
+		ft_rotate_player_pro(grl, -rot_speed);
+	ft_render_floor_ceiling(grl);
+	ft_raycast_walls(grl);
+	mlx_put_image_to_window(grl->engine.mlx,
+		grl->engine.win,
+		grl->engine.screen_buff.img_ptr,
+		0, 0);
 	return (0);
 }
 

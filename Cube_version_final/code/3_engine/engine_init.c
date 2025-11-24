@@ -6,7 +6,7 @@
 /*   By: rhiguita <rhiguita@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 23:02:28 by rhiguita          #+#    #+#             */
-/*   Updated: 2025/11/24 10:24:02 by rhiguita         ###   ########.fr       */
+/*   Updated: 2025/11/24 11:04:21 by rhiguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	ft_load_single_texture(t_grl *grl, int id, char *path)
 			&grl->engine.textures[id].line_len,
 			&grl->engine.textures[id].endian);
 }
-
 
 //Carga las 4 texturas usando las rutas parseadas en grl->assets.
 //Orden: NO(0), SO(1), WE(2), EA(3).
