@@ -6,7 +6,7 @@
 /*   By: rhiguita <rhiguita@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 23:02:01 by rhiguita          #+#    #+#             */
-/*   Updated: 2025/11/24 10:42:24 by rhiguita         ###   ########.fr       */
+/*   Updated: 2025/11/25 09:50:03 by rhiguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_close_game(t_grl *grl)
 {
-	printf("Cerrando el juego correctamente...\n");
+	printf("Close the game...\n");
 	ft_ctrl_cleanUp(grl, NULL, 0);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhiguita <rhiguita@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: rhiguita <rhiguita@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 12:25:24 by rhiguita          #+#    #+#             */
-/*   Updated: 2025/11/24 12:25:32 by rhiguita         ###   ########.fr       */
+/*   Updated: 2025/11/25 13:27:00 by rhiguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@
 # define HDR_ALL_MASK 0x3F
 
 // --- ENGINE SETTINGS ---
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 768
+//# define WIN_WIDTH 1920
+//# define WIN_HEIGHT 1080
 
 // --- KEYCODES (Linux/X11) ---
 # define KEY_ESC 65307
@@ -107,6 +107,8 @@ typedef struct s_engine
 {
 	void	*mlx;
 	void	*win;
+	int		win_w;
+	int		win_h;
 	t_img	screen_buff;
 	t_img	textures[4];
 }			t_engine;
@@ -245,6 +247,7 @@ void	ft_init_motor(t_grl *grl);
 void	ft_load_textures(t_grl *grl);
 
 // engine_hooks.c
+int		ft_close_game(t_grl *grl);
 void	ft_setup_hooks(t_grl *grl);
 int		ft_game_loop(t_grl *grl);
 
@@ -258,7 +261,7 @@ void	ft_raycast_walls(t_grl *grl);
 void	ft_init_ray(t_ray *ray, t_grl *grl, int x);
 void	ft_calc_step(t_ray *ray, t_grl *grl);
 void	ft_perform_dda(t_ray *ray, t_grl *grl);
-void	ft_calc_wall_height(t_ray *ray);
+void	ft_calc_wall_height(t_ray *ray, t_grl *grl);
 void	ft_calc_texture_x(t_ray *ray, t_grl *grl);
 
 // engine_movement.c

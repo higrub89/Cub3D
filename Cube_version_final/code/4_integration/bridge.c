@@ -6,7 +6,7 @@
 /*   By: rhiguita <rhiguita@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 22:49:58 by rhiguita          #+#    #+#             */
-/*   Updated: 2025/11/24 11:16:33 by rhiguita         ###   ########.fr       */
+/*   Updated: 2025/11/25 09:51:38 by rhiguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_convert_data(t_grl *grl)
 	grl->player.pos_x = (double)grl->player_col + 0.5;
 	grl->player.pos_y = (double)grl->player_row + 0.5;
 	ft_set_orientation_vectors(grl);
-	printf("✅ BRIDGE: Datos convertidos.\n");
+	printf("✅ BRIDGE: Converted Data.\n");
 	printf("   -> Pos: [%f, %f]\n", grl->player.pos_x, grl->player.pos_y);
 	printf("   -> Dir: [%f, %f]\n", grl->player.dir_x, grl->player.dir_y);
 }

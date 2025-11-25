@@ -6,7 +6,7 @@
 /*   By: rhiguita <rhiguita@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 23:04:53 by rhiguita          #+#    #+#             */
-/*   Updated: 2025/11/24 10:34:33 by rhiguita         ###   ########.fr       */
+/*   Updated: 2025/11/25 10:34:06 by rhiguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_init_ray(t_ray *ray, t_grl *grl, int x)
 {
-	ray->camera_x = 2 * x / (double)WIN_WIDTH - 1;
+	ray->camera_x = 2 * x / (double)grl->engine.win_w - 1;
 	ray->ray_dir_x = grl->player.dir_x + grl->player.plane_x * ray->camera_x;
 	ray->ray_dir_y = grl->player.dir_y + grl->player.plane_y * ray->camera_x;
 	ray->map_x = (int)grl->player.pos_x;
@@ -83,19 +83,19 @@ void	ft_perform_dda(t_ray *ray, t_grl *grl)
 	}
 }
 
-void	ft_calc_wall_height(t_ray *ray)
+void	ft_calc_wall_height(t_ray *ray, t_grl *grl)
 {
 	if (ray->side == 0)
 		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 	else
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
-	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
-	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
+	ray->line_height = (int)(grl->engine.win_h / ray->perp_wall_dist);
+	ray->draw_start = -ray->line_height / 2 + grl->engine.win_h / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
-	ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2;
-	if (ray->draw_end >= WIN_HEIGHT)
-		ray->draw_end = WIN_HEIGHT - 1;
+	ray->draw_end = ray->line_height / 2 + grl->engine.win_h / 2;
+	if (ray->draw_end >= grl->engine.win_h)
+		ray->draw_end = grl->engine.win_h - 1;
 }
 
 void	ft_calc_texture_x(t_ray *ray, t_grl *grl)
